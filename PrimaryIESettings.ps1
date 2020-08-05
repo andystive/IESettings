@@ -85,9 +85,9 @@ if (Test-Path "C:\Windows\SysWOW64")
 	$IE = "C:\\Program Files\\Internet Explorer\\iexplore.exe"
 }
 
-# 创建桌面快捷方式，绑定主机IP地址
+# 创建桌面快捷方式，绑定主机IP地址，打开一卡通
 <#
-# 方法虽好，但不太适合
+# 方法虽好，但不太适合，默认浏览器容易被换
 $Shell=New-Object -ComObject WScript.Shell 
 $DesktopPath=[System.Environment]::GetFolderPath('Desktop')
 $Shortcut=$shell.CreateShortcut("$DesktopPath\点我打开一卡通.lnk")  
@@ -95,10 +95,10 @@ $Shortcut.TargetPath="http://$IP/sinoWeb/jsp/login.jsp"
 $Shortcut.Save()
 #>
 
-# 还是这样比较好
+# 还是这样比较好，直接调用32位IE打开网页
 $DesktopPath=[System.Environment]::GetFolderPath('Desktop')
-$URL = "$IE http://$IP/sinoWeb/jsp/login.jsp"
-$URL|Out-File $DesktopPath\点我打开一卡通.bat
+$Shortcut = "@`"$IE`" `"http://$IP/sinoWeb/jsp/login.jsp`""
+$Shortcut|Out-File -FilePath $DesktopPath\点我打开一卡通.bat -Encoding ASCII
 
 
 # 调用32位IE浏览器打开系统页面
