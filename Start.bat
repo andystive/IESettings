@@ -1,5 +1,5 @@
 @echo off
-rem èŽ·å–ç®¡ç†å‘˜æƒé™
+rem »ñÈ¡¹ÜÀíÔ±È¨ÏÞ
 (cd /d "%~dp0")&&(NET FILE||(powershell start-process -FilePath '%0' -verb runas)&&(exit /B)) >NUL 2>&1
 
 
@@ -7,56 +7,62 @@ cls
 echo.
 echo.          #######################################################
 echo.          ##                                                   ##
-echo.          ##    æ­£åœ¨å¯åŠ¨ç³»ç»Ÿï¼Œè¯·ç¨ç­‰...                          ##
-echo.          ##    è¯·å‹¿æ“ä½œç”µè„‘ï¼Œååˆ†é’ŸåŽä»æœªæ‰“å¼€ç³»ç»Ÿè¯·è”ç³»è¿ç»´...    ##
-echo.          ##    ç¨å®‰å‹¿èºï¼Œç¥æ‚¨ç”Ÿæ´»æ„‰å¿«...                        ##
+echo.          ##    ÕýÔÚÆô¶¯ÏµÍ³£¬ÇëÉÔµÈ...                          ##
+echo.          ##    ÇëÎð²Ù×÷µçÄÔ£¬Ê®·ÖÖÓºóÈÔÎ´´ò¿ªÏµÍ³ÇëÁªÏµÔËÎ¬...    ##
+echo.          ##    ÉÔ°²ÎðÔê£¬×£ÄúÉú»îÓä¿ì...                        ##
 echo.          ##                                                   ##
 echo.          #######################################################
 
 @echo off
-
 goto MySQL
-rem æŸ¥è¯¢ç³»ç»Ÿæ˜¯å¦å­˜åœ¨jbossæœåŠ¡ï¼Œåˆ¤æ–­æ˜¯å¦ä¸ºä¸»æœº
-SC QUERY jboss > NUL
+rem ²éÑ¯ÏµÍ³ÊÇ·ñ´æÔÚjboss·þÎñ£¬ÅÐ¶ÏÊÇ·ñÎªÖ÷»ú
+rem ÔÝÎ´ÆôÓÃ£¬Òò¸ö±ð¸±»úÉÏÒ²×°ÓÐJboss·þÎñ£¬ÈÝÒ×Ôì³ÉÎóÅÐ
+SC QUERY jboss >NUL 2>&1
 if ERRORLEVEL 1060 (
-    echo æœªæ£€æµ‹åˆ°JbossæœåŠ¡ï¼Œæ­£åœ¨è®¿é—®ç³»ç»Ÿåœ°å€ï¼Œè¯·ç¨ç­‰...
+    echo Î´¼ì²âµ½Jboss·þÎñ£¬ÕýÔÚ·ÃÎÊÏµÍ³µØÖ·£¬ÇëÉÔµÈ...
     goto IESettings
 ) else (
-    echo æ£€æµ‹åˆ°JbossæœåŠ¡ï¼Œæ­£åœ¨å¯åŠ¨ç³»ç»Ÿï¼Œè¯·ç¨ç­‰...
+    echo ¼ì²âµ½Jboss·þÎñ£¬ÕýÔÚÆô¶¯ÏµÍ³£¬ÇëÉÔµÈ...
     goto StartJboss
 )
 
 :MySQL
-rem æŸ¥è¯¢MySQLæœåŠ¡æ˜¯å¦å¯åŠ¨ï¼Œåˆ¤æ–­æ˜¯å¦ä¸ºä¸»æœº
+rem ²éÑ¯MySQL·þÎñÊÇ·ñÆô¶¯£¬ÅÐ¶ÏÊÇ·ñÎªÖ÷»ú
 set M_Status=1 
-(tasklist|findstr "mysql"||set M_Status=0) >nul
+(tasklist|findstr "mysql"||set M_Status=0) >NUL 2>&1
 IF %M_Status% EQU 1 (
-    echo æœªæ£€æµ‹åˆ° MySQL æœåŠ¡ï¼Œæ­£åœ¨è®¿é—®ç³»ç»Ÿåœ°å€ï¼Œè¯·ç¨ç­‰...
+    echo Î´¼ì²âµ½ MySQL ·þÎñ£¬ÕýÔÚ·ÃÎÊÏµÍ³µØÖ·£¬ÇëÉÔµÈ...
     goto IESetting
 ) ELSE (
-    echo æ£€æµ‹åˆ° MySQL æœåŠ¡ï¼Œæ­£åœ¨æ£€æµ‹ Jboss æœåŠ¡ï¼Œè¯·ç¨ç­‰...
+    echo ¼ì²âµ½ MySQL ·þÎñ£¬ÕýÔÚ¼ì²â Jboss ·þÎñ£¬ÇëÉÔµÈ...
     goto StartJboss
 )
 
 :StartJboss
-rem æ£€æµ‹JbossæœåŠ¡æ˜¯å¦å¯åŠ¨
+rem ¼ì²âJboss·þÎñÊÇ·ñÆô¶¯
 set J_Status=1 
-(tasklist|findstr "jboss"||set J_Status=0) >nul
+(tasklist|findstr "jboss"||set J_Status=0) >NUL 2>&1
 IF %J_Status% EQU 1 (
-    echo Jboss æœåŠ¡æœªå¯åŠ¨ï¼Œæ­£åœ¨å¯åŠ¨æœåŠ¡ï¼Œè¯·ç¨ç­‰...
+    echo Jboss ·þÎñÎ´Æô¶¯£¬ÕýÔÚÆô¶¯·þÎñ£¬ÇëÉÔµÈ...
     net start jboss
-    goto IESettings
+    goto PrimaryIESettings
 ) ELSE (
-    echo Jboss æœåŠ¡å·²å¯åŠ¨ï¼Œæ­£åœ¨è®¿é—®ç³»ç»Ÿï¼Œè¯·ç¨ç­‰...
+    echo Jboss ·þÎñÒÑÆô¶¯£¬ÕýÔÚ·ÃÎÊÏµÍ³£¬ÇëÉÔµÈ...
     goto IESettings
 )
 
-:IESettings
-rem è°ƒç”¨powershellè„šæœ¬ï¼Œæ·»åŠ å¯ä¿¡ç«™ç‚¹ï¼Œå…¼å®¹æ€§è§†å›¾
-call powershell -ExecutionPolicy unrestricted -File .\IESetting.ps1
+:PrimaryIESettings
+rem µ÷ÓÃpowershell½Å±¾£¬Ìí¼Ó¿ÉÐÅÕ¾µã£¬¼æÈÝÐÔÊÓÍ¼
+call powershell -ExecutionPolicy unrestricted -File .\PrimaryIESettings.ps1
+goto ARP
 
-rem èŽ·å–æœ¬åœ°ipåœ°å€æ®µï¼Œç„¶åŽåˆ·æ–°å‰¯æœºarpè¡¨
+:IESettings
+rem µ÷ÓÃpowershell½Å±¾£¬Ìí¼Ó¿ÉÐÅÕ¾µã£¬¼æÈÝÐÔÊÓÍ¼
+call powershell -ExecutionPolicy unrestricted -File .\IESettings.ps1
+goto ARP
+
+:ARP
+rem »ñÈ¡±¾µØipµØÖ·¶Î£¬È»ºóË¢ÐÂ¸±»úarp±í
 for /f "tokens=2 delims=:" %%i in ('ipconfig^|findstr /c:"IPv4"') do (for /f "tokens=1,2,3,4 delims=." %%a in ('echo %%i') do set Three=%%c)
 for /L %%i IN (1,1,254) DO ping -w 2 -n 1 192.168.%Three%.%%i >nul
-
 exit
