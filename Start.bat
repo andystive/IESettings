@@ -5,13 +5,13 @@ rem 获取管理员权限
 
 cls
 echo.
-echo.          #######################################################
-echo.          ##                                                   ##
+echo.          #########################################################
+echo.          ##                                                     ##
 echo.          ##    正在启动系统，请稍等...                          ##
-echo.          ##    请勿操作电脑，十分钟后仍未打开系统请联系运维...    ##
-echo.          ##    稍安勿躁，祝您生活愉快...                        ##
-echo.          ##                                                   ##
-echo.          #######################################################
+echo.          ##    请勿操作电脑，十分钟后仍未打开系统请联系运维     ##
+echo.          ##    稍安勿躁，祝您生活愉快！！！                     ##
+echo.          ##                                                     ##
+echo.          #########################################################
 
 @echo off
 goto MySQL
@@ -30,9 +30,9 @@ if ERRORLEVEL 1060 (
 rem 查询MySQL服务是否启动，判断是否为主机
 set M_Status=1 
 (tasklist|findstr "mysql"||set M_Status=0) >NUL 2>&1
-IF %M_Status% EQU 1 (
+IF %M_Status% EQU 0 (
     echo 未检测到 MySQL 服务，正在访问系统地址，请稍等...
-    goto IESetting
+    goto IESettings
 ) ELSE (
     echo 检测到 MySQL 服务，正在检测 Jboss 服务，请稍等...
     goto StartJboss
@@ -42,7 +42,7 @@ IF %M_Status% EQU 1 (
 rem 检测Jboss服务是否启动
 set J_Status=1 
 (tasklist|findstr "jboss"||set J_Status=0) >NUL 2>&1
-IF %J_Status% EQU 1 (
+IF %J_Status% EQU 0 (
     echo Jboss 服务未启动，正在启动服务，请稍等...
     net start jboss
     goto PrimaryIESettings
@@ -53,12 +53,12 @@ IF %J_Status% EQU 1 (
 
 :PrimaryIESettings
 rem 调用powershell脚本，添加可信站点，兼容性视图
-call powershell -ExecutionPolicy unrestricted -File .\PrimaryIESettings.ps1
+call C:\Windows\System32\WindowsPowerShell\v1.0\powershell -ExecutionPolicy unrestricted -File .\PrimaryIESettings.ps1
 goto ARP
 
 :IESettings
 rem 调用powershell脚本，添加可信站点，兼容性视图
-call powershell -ExecutionPolicy unrestricted -File .\IESettings.ps1
+call C:\Windows\System32\WindowsPowerShell\v1.0\powershell -ExecutionPolicy unrestricted -File .\IESettings.ps1
 goto ARP
 
 :ARP
