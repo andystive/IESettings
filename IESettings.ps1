@@ -3,7 +3,7 @@ Function Get-PrimaryIP
 {
 	$Nei = ((arp -a|select-string "192.168"|out-string).split(" ")|select-string "192.168"|out-string).Trim()
 	$Nei = $Nei.split("`n")
-	$Nei|Out-File -FilePath .\ARP.txt
+	$Nei|Out-File .\ARP.txt
 	$ARP = (Get-Content -Path .\ARP.txt)|Where-Object { $_ -ne '' }
 	foreach ($IP in $ARP)
 	{
