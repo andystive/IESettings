@@ -1,8 +1,8 @@
-# ÉèÖÃÖ÷»úµØÖ·
+# è®¾ç½®ä¸»æœºåœ°å€
 $IP = "127.0.0.1"
 
 <#
-# Ìí¼Ó¿ÉĞÅÕ¾µã£¨ÓòÃû£©
+# æ·»åŠ å¯ä¿¡ç«™ç‚¹ï¼ˆåŸŸåï¼‰
 set-location "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\ZoneMap\Domains"
 new-item inspur.com/ -Force
 set-location inspur.com/
@@ -11,18 +11,18 @@ new-itemproperty . -Name http -Value 2 -Type DWORD -Force
 new-itemproperty . -Name https -Value 2 -Type DWORD -Force
 #>
 
-# Ìí¼Ó¿ÉĞÅÕ¾µã£¨IP£©
+# æ·»åŠ å¯ä¿¡ç«™ç‚¹ï¼ˆIPï¼‰
 set-location "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Ranges"
 new-item range1580/ -Force
 set-location range1580/
 new-itemproperty . -Name http -Value 2 -Type DWORD -Force
 new-itemproperty . -Name :Range -Value $IP -Type String -Force
 
-# ÉèÖÃË¢ĞÂ²ßÂÔÎªÃ¿´Î·ÃÎÊÒ³ÃæÊ±
+# è®¾ç½®åˆ·æ–°ç­–ç•¥ä¸ºæ¯æ¬¡è®¿é—®é¡µé¢æ—¶
 set-location "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
 new-itemproperty . -Name SyncMode5 -Value 00000003 -Type DWORD -Force
 
-# ÉèÖÃ¿ÉĞÅÕ¾µãµÄActiveX¿Ø¼ş
+# è®¾ç½®å¯ä¿¡ç«™ç‚¹çš„ActiveXæ§ä»¶
 Set-Location "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\zones\2"
 new-itemproperty . -Name 2702 -Value 0 -Type DWORD -Force
 new-itemproperty . -Name 1208 -Value 0 -Type DWORD -Force 
@@ -37,11 +37,11 @@ new-itemproperty . -Name 120B -Value 0 -Type DWORD -Force
 new-itemproperty . -Name 1200 -Value 0 -Type DWORD -Force 
 new-itemproperty . -Name 1405 -Value 0 -Type DWORD -Force 
 
-# ½ûÓÃµ¯³ö´°¿Ú×èÖ¹³ÌĞò
+# ç¦ç”¨å¼¹å‡ºçª—å£é˜»æ­¢ç¨‹åº
 set-location "HKCU:\Software\Microsoft\Internet Explorer\New Windows"
 set-itemproperty . -Name PopupMgr -Value no
 
-# Ìí¼Ó¼æÈİÊÓÍ¼
+# æ·»åŠ å…¼å®¹è§†å›¾
 Function Get-WebsiteHex(){
 	[CmdletBinding()]param(
 		[Parameter(Mandatory=$True)]
@@ -71,13 +71,13 @@ Function Get-IECVHex(){
 	}
 }
 <#
-½«ÊıÖµ×ª»»³É16½øÖÆĞ´Èë×¢²á±í£¬¿ÉÒÔÌí¼Ó¶à¸öµØÖ·£¬Ö®¼äÓÃ","¸ô¿ª£¬Èç:
+å°†æ•°å€¼è½¬æ¢æˆ16è¿›åˆ¶å†™å…¥æ³¨å†Œè¡¨ï¼Œå¯ä»¥æ·»åŠ å¤šä¸ªåœ°å€ï¼Œä¹‹é—´ç”¨","éš”å¼€ï¼Œå¦‚:
 $hex_string=Get-IECVHex @('inspur.com','neverstop.club')
 #>
 $hex_string=Get-IECVHex @($IP)
 reg add 'HKCU\Software\Microsoft\Internet Explorer\BrowserEmulation\ClearableListData' /v UserFilter /t Reg_BINARY /d $hex_string /f
 
-# ÅĞ¶¨ÏµÍ³Î»Êı£¬È·¶¨µ÷ÓÃ32Î»ä¯ÀÀ
+# åˆ¤å®šç³»ç»Ÿä½æ•°ï¼Œç¡®å®šè°ƒç”¨32ä½æµè§ˆ
 if (Test-Path "C:\Windows\SysWOW64")
 {
 	$IE = "C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe"
@@ -85,21 +85,21 @@ if (Test-Path "C:\Windows\SysWOW64")
 	$IE = "C:\\Program Files\\Internet Explorer\\iexplore.exe"
 }
 
-# ´´½¨×ÀÃæ¿ì½İ·½Ê½£¬°ó¶¨Ö÷»úIPµØÖ·£¬´ò¿ªÒ»¿¨Í¨
+# åˆ›å»ºæ¡Œé¢å¿«æ·æ–¹å¼ï¼Œç»‘å®šä¸»æœºIPåœ°å€ï¼Œæ‰“å¼€ä¸€å¡é€š
 <#
-# ·½·¨ËäºÃ£¬µ«²»Ì«ÊÊºÏ£¬Ä¬ÈÏä¯ÀÀÆ÷ÈİÒ×±»»»
+# æ–¹æ³•è™½å¥½ï¼Œä½†ä¸å¤ªé€‚åˆï¼Œé»˜è®¤æµè§ˆå™¨å®¹æ˜“è¢«æ¢
 $Shell=New-Object -ComObject WScript.Shell 
 $DesktopPath=[System.Environment]::GetFolderPath('Desktop')
-$Shortcut=$shell.CreateShortcut("$DesktopPath\µãÎÒ´ò¿ªÒ»¿¨Í¨.lnk")  
+$Shortcut=$shell.CreateShortcut("$DesktopPath\ç‚¹æˆ‘æ‰“å¼€ä¸€å¡é€š.lnk")  
 $Shortcut.TargetPath="http://$IP/sinoWeb/jsp/login.jsp"
 $Shortcut.Save()
 #>
 
-# »¹ÊÇÕâÑù±È½ÏºÃ£¬Ö±½Óµ÷ÓÃ32Î»IE´ò¿ªÍøÒ³
+# è¿˜æ˜¯è¿™æ ·æ¯”è¾ƒå¥½ï¼Œç›´æ¥è°ƒç”¨32ä½IEæ‰“å¼€ç½‘é¡µ
 $DesktopPath=[System.Environment]::GetFolderPath('Desktop')
 $Shortcut = "@`"$IE`" `"http://$IP/sinoWeb/jsp/login.jsp`""
-$Shortcut|Out-File -FilePath $DesktopPath\µãÎÒ´ò¿ªÒ»¿¨Í¨.bat -Encoding ASCII
+$Shortcut|Out-File -FilePath $DesktopPath\ç‚¹æˆ‘æ‰“å¼€ä¸€å¡é€š.bat -Encoding ASCII
 
 
-# µ÷ÓÃ32Î»IEä¯ÀÀÆ÷´ò¿ªÏµÍ³Ò³Ãæ
+# è°ƒç”¨32ä½IEæµè§ˆå™¨æ‰“å¼€ç³»ç»Ÿé¡µé¢
 Start-Process -FilePath $IE -ArgumentList http://$IP/sinoWeb/jsp/login.jsp
