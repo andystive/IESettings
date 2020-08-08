@@ -26,7 +26,7 @@ if exist %ARP% (
 	echo @echo off >>%ARP%
 	echo for /f "tokens=2 delims=:" %%%%i in ('ipconfig^^^|findstr /c:"IPv4"'^) do (for /f "tokens=1,2,3,4 delims=." %%%%a in ('echo %%%%i'^) do set Three=%%%%c^) ^>nul >>%ARP%
     echo for /L %%%%i in (1,1,254^) do ping -w 2 -n 1 192.168.%%Three%%.%%%%i ^>nul >>%ARP%
-	start %ARP%
+	start /B %ARP%
 	goto MySQL
 )
     
