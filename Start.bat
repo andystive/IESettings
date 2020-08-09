@@ -34,6 +34,7 @@ if exist %ARP% (
 
 :ARP
 rem 获取本地ip地址段，然后刷新副机arp表
+echo.
 echo 正在获取主机IP地址，请稍等...
 for /f "tokens=2 delims=:" %%i in ('ipconfig^|findstr /c:"IPv4"') do (for /f "tokens=1,2,3,4 delims=." %%a in ('echo %%i') do set Three=%%c)
 for /L %%i IN (1,1,254) DO ping -w 2 -n 1 192.168.%Three%.%%i >nul
