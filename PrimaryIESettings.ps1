@@ -100,6 +100,5 @@ $DesktopPath=[System.Environment]::GetFolderPath('Desktop')
 $Shortcut = "@`"$IE`" `"http://$IP/sinoWeb/jsp/login.jsp`""
 $Shortcut|Out-File -FilePath $DesktopPath\点我打开一卡通.bat -Encoding ASCII
 
-
 # 调用32位IE浏览器打开系统页面
 Start-Process -FilePath $IE -ArgumentList http://$IP/sinoWeb/jsp/login.jsp
