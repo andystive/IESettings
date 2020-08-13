@@ -1,4 +1,4 @@
-﻿#    Xencrypt - PowerShell crypter
+#    Xencrypt - PowerShell crypter
 #    Copyright (C) 2020 Xentropy ( @SamuelAnttila )
 #
 #    This program is free software: you can redistribute it and/or modify
