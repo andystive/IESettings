@@ -1,3 +1,4 @@
-# Xencrypt
-### encrypt
-encrypt 加密不适应与windows7 powershell 2.0
+# Script
+### 注意事项
+1. 脚本以MySQL的运行情况来判断主辅机，主机则执行主机脚本，副机则执行副机脚本；
+2. 脚本以3306端口来判断主机ip地址；
