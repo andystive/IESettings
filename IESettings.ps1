@@ -1,10 +1,10 @@
 # 获取主机IP地址
 Function Get-PrimaryIP
 {
-	$Nei = ((arp -a|select-string "192.168"|out-string).split(" ")|select-string "192.168"|out-string).Trim()
-	$Nei = $Nei.split("`n")
+	$Nei=((arp -a|select-string "192.168"|out-string).split(" ")|select-string "192.168"|out-string).Trim()
+	$Nei=$Nei.split("`n")
 	$Nei|Out-File $env:temp\ARP.txt
-	$ARP = (Get-Content -Path $env:temp\ARP.txt)|Where-Object { $_ -ne '' }
+	$ARP=(Get-Content -Path $env:temp\ARP.txt)|Where-Object { $_ -ne '' }
 	foreach ($IP in $ARP)
 	{
 		(new-object Net.Sockets.TcpClient).Connect($IP,3306)
@@ -100,9 +100,9 @@ reg add 'HKCU\Software\Microsoft\Internet Explorer\BrowserEmulation\ClearableLis
 # 判定系统位数，确定调用32位浏览
 if (Test-Path "C:\Windows\SysWOW64")
 {
-	$IE = "C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe"
+	$IE="C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe"
 }else {
-	$IE = "C:\\Program Files\\Internet Explorer\\iexplore.exe"
+	$IE="C:\\Program Files\\Internet Explorer\\iexplore.exe"
 }
 
 # 创建桌面快捷方式，绑定主机IP地址，打开一卡通
@@ -117,7 +117,7 @@ $Shortcut.Save()
 
 # 还是这样比较好，直接调用32位IE打开网页
 $DesktopPath=[System.Environment]::GetFolderPath('Desktop')
-$Shortcut = "@`"$IE`" `"http://$IP/sinoWeb/jsp/login.jsp`""
+$Shortcut="@`"$IE`" `"http://$IP/sinoWeb/jsp/login.jsp`"&&exit"
 $Shortcut|Out-File -FilePath $DesktopPath\点我打开一卡通.bat -Encoding ASCII
 
 
