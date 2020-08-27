@@ -1,6 +1,6 @@
 @echo off
-rem 获取管理员权限
-%1 start "" mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c ""%~s0"" ::","","runas",1)(window.close)&&exit
+rem 获取管理员权限，暂时不需要，且安装360的电脑可能无法正常执行powershell命令
+rem (cd /d "%~dp0")&&(NET FILE||(powershell start-process -FilePath '%0' -verb runas)&&(exit /B)) >NUL 2>&1
 
 cls
 echo.
