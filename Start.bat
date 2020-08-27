@@ -1,6 +1,6 @@
 @echo off
 rem 获取管理员权限
-(cd /d "%~dp0")&&(NET FILE||(powershell start-process -FilePath '%0' -verb runas)&&(exit /B)) >NUL 2>&1
+%1 start "" mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c ""%~s0"" ::","","runas",1)(window.close)&&exit
 
 cls
 echo.
@@ -35,6 +35,7 @@ if exist %ARP% (
 
 :ARP
 rem 获取本地ip地址段，然后刷新arp表
+rem 采用ping局域网ip的方式，比较耗时间，目前没找到更好的方法
 echo.          ===========================================================
 echo.
 echo                  正在刷新ARP缓存，需要约120秒，请稍等...
