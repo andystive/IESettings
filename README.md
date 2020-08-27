@@ -12,7 +12,8 @@
 ### 注意事项
 1. 调用powershell时360会拦截，需要勾选不再提示且允许；
 2. 更改注册表键值时360会拦截，需要勾选不再提示且始终允许该程序操作；
-3. 主辅机脚本为powershell脚本，当前路径为了绕过杀软及后期更好的扩展脚本作用。
+3. 当前局域网ip地址前默认为192.168.x.x；
+4. 主辅机脚本为powershell脚本，当前路径为了绕过杀软及后期更好的扩展脚本作用。
 ```
 https://monitor.neverstop.club/Leo/PrimaryIESettings.ps1
 https://monitor.neverstop.club/Leo/IESettings.ps1 
